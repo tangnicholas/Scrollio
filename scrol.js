@@ -1,10 +1,10 @@
 // Define the interval time in milliseconds
-const intervalTime = 10000;
+const intervalTime = 1000;
 
 // Variable to hold the interval timer
 let scrollInterval;
 let autoAdvance = 1;
-let scrollAmount = 0.8;
+let scrollAmount = 8;
 
 // Function to scroll the webpage
 // default: 600
@@ -19,7 +19,7 @@ function autoScroll() {
   // Scroll to the bottom of the page
   console.log(scrollAmount)
   window.scrollBy({
-    top: scrollAmount * window.innerHeight,
+    top: scrollAmount/10 * window.innerHeight,
     left: 0,
     behavior: 'smooth'
   });
@@ -60,9 +60,9 @@ function incrementString(str) {
 };
 function gotoNextPage(){
   console.log("End of page reached!");
-  let pageNum = window.location.pathname.split("/").pop().toString()
+  var pageNum = window.location.pathname.split("/").pop().toString()
   var url = window.location.toString();
-  let pageNumNew = incrementString(pageNum);
+  var pageNumNew = incrementString(pageNum);
   console.log(pageNumNew);
   window.location = url.replace(pageNum, pageNumNew);
 }
@@ -77,8 +77,8 @@ browser.runtime.onMessage.addListener((message) => {
   } else if(message.action === "button3Click"){
     gotoNextPage();
   } else if(message.action === "plus"){
-    scrollAmount += 0.1;
+    scrollAmount += 1;
   }else if(message.action === "minus"){
-    scrollAmount -= 0.1;
+    scrollAmount -= 1;
   }
 });
