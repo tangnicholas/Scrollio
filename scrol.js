@@ -3,8 +3,8 @@ const intervalTime = 1000;
 
 // Variable to hold the interval timer
 let scrollInterval;
-let autoAdvance = 1;
-let scrollAmount = 8;
+let autoAdvance = 1;    // just a value to add a setting later
+let scrollAmount = 0.8;
 
 // Function to scroll the webpage
 // default: 600
@@ -19,7 +19,7 @@ function autoScroll() {
   // Scroll to the bottom of the page
   console.log(scrollAmount)
   window.scrollBy({
-    top: scrollAmount/10 * window.innerHeight,
+    top: scrollAmount * window.innerHeight,
     left: 0,
     behavior: 'smooth'
   });
@@ -77,8 +77,8 @@ browser.runtime.onMessage.addListener((message) => {
   } else if(message.action === "button3Click"){
     gotoNextPage();
   } else if(message.action === "plus"){
-    scrollAmount += 1;
+    scrollAmount += 0.1;
   }else if(message.action === "minus"){
-    scrollAmount -= 1;
+    scrollAmount -= 0.1;
   }
 });
