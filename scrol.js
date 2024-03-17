@@ -1,5 +1,5 @@
 // Define the interval time in milliseconds
-const intervalTime = 1000;
+const intervalTime = 10000;
 
 // Variable to hold the interval timer
 let scrollInterval;
@@ -70,11 +70,11 @@ function gotoNextPage(){
 
 //Runtime Controls
 browser.runtime.onMessage.addListener((message) => {
-  if (message.action === "button1Click"){
+  if (message.action === "start"){
     startScrolling();
-  } else if(message.action === "button2Click"){
+  } else if(message.action === "stop"){
     stopScrolling();
-  } else if(message.action === "button3Click"){
+  } else if(message.action === "next"){
     gotoNextPage();
   } else if(message.action === "plus"){
     scrollAmount += 0.1;

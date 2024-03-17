@@ -12,7 +12,7 @@
     
     "manifest_version": 2,
     "name": "Scrollio",
-    "version": "0.951",
+    "version": "0.952",
 
     "description": "Auto scrolls webpages at a reasonable pace",
     "icons": {
