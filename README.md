@@ -15,4 +15,4 @@ Auto scrolls webpages at a reasonable pace. Made for Firefox Android, can be use
 1. Radio button for auto-next.
 
 **Changelog**
-3/18/2024 - base functionality + minor adjustments
+1. 3/18/2024 - base functionality + minor adjustments
