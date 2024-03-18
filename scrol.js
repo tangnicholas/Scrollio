@@ -6,7 +6,7 @@ let scrollInterval;
 let autoAdvance = 0;    // just a value to add a setting later
 let scrollAmount = 0.8;
 
-function setVals(){
+function setVals() {
   var newRatio = Integer.parseInt(localStorage.getItem('ratio'));
   scrollAmount = newRatio;
   //document.getElementById("scrollX").value = currentRatio.toString();
@@ -18,11 +18,16 @@ function setVals(){
 function autoScroll() {
   console.log("testing...")
   //if end of page advance if auto-advance is on 
-  if (autoAdvance && isEndOfPage()){
-    console.log("works")
-    gotoNextPage();
+  
+  if (isEndOfPage()) {
+    if (autoAdvance) {
+      console.log("next page")
+      gotoNextPage();
+    } else {
+      stopScrolling();
+    }
   }
-
+  
   // Scroll to the bottom of the page
   console.log("Current scrollAmount: " + scrollAmount);
   window.scrollBy({
@@ -35,6 +40,7 @@ function autoScroll() {
 // Function to start scrolling
 function startScrolling() {
   console.log("Recieved Start");
+  scrollAmount = localStorage.getItem('ratio');
   // Check if scrolling is not already running
   if (!scrollInterval) {
     // Start the scrolling interval
@@ -67,7 +73,7 @@ function incrementString(str) {
   return str.substr(0, count.index) + (++count[0]);
 };
 
-function gotoNextPage(){
+function gotoNextPage() {
   console.log("End of page reached!");
   var pageNum = window.location.pathname.split("/").pop().toString()
   var url = window.location.toString();
@@ -76,20 +82,15 @@ function gotoNextPage(){
   window.location = url.replace(pageNum, pageNumNew);
 }
 
-
 //Runtime Controls
 browser.runtime.onMessage.addListener((message) => {
-  if (message.action === "start"){
+  if (message.action === "start") {
     startScrolling();
-  } else if(message.action === "stop"){
+  } else if (message.action === "stop") {
     stopScrolling();
-  } else if(message.action === "next"){
+  } else if (message.action === "next") {
     gotoNextPage();
-  } else if(message.action === "plus"){
-    scrollAmount += 0.1;
-  } else if(message.action === "minus"){
-    scrollAmount -= 0.1;
-  } else if(message.action === "setValue") {
-    setVals();
+  } else if (message.action === "setValue") {
+    //setVals();
   }
 });
