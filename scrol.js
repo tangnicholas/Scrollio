@@ -33,8 +33,8 @@ function autoScroll() {
 // Function to start scrolling
 function startScrolling() {
   console.log("Recieved Start");
-  console.log("ScrollAmount: " + Number.parseFloat(localStorage.getItem('ratio')).toFixed(1));
-  scrollAmount = Number.parseFloat(localStorage.getItem('ratio'));
+  console.log("ScrollAmount: " + Number.parseFloat(scrollAmount).toFixed(1));
+
   // Check if scrolling is not already running
   if (!scrollInterval) {
     // Start the scrolling interval
@@ -67,6 +67,9 @@ function incrementString(str) {
   return str.substr(0, count.index) + (++count[0]);
 };
 
+/**
+ * 
+ */
 function gotoNextPage() {
   console.log("End of page reached!");
   var pageNum = window.location.pathname.split("/").pop().toString()
@@ -76,15 +79,19 @@ function gotoNextPage() {
   window.location = url.replace(pageNum, pageNumNew);
 }
 
-//Runtime Controls
+/** 
+ * 
+ */
 browser.runtime.onMessage.addListener((message) => {
-  if (message.action === "start") {
+  if (message.data.action === "start") {
+    console.log("Received Start, here is the value: " + message.data.value);
+    scrollAmount = Number.parseFloat(message.data.value);
     startScrolling();
-  } else if (message.action === "stop") {
+  } else if (message.data.action === "stop") {
     stopScrolling();
-  } else if (message.action === "next") {
+  } else if (message.data.action === "next") {
     gotoNextPage();
-  } else if (message.action === "setValue") {
+  } else if (message.data.action === "setValue") {
     //setVals();
   }
 });

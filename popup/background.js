@@ -11,7 +11,7 @@ function handleStartup() {
   } else {
     scrollRatioDisplay = Number.parseFloat(currRatio);
   }
-  scrollValueInputElement.value = scrollRatioDisplay;
+  scrollValueInputElement.value = Number.parseFloat(scrollRatioDisplay).toFixed(1);
 }
 
 /**
@@ -46,9 +46,26 @@ function populateDisplay(value) {
 
 // Sends a message using active tab info
 function sendMsg(actionMessage) {
+  // Create a message object.
+  const message = actionMessage === 'start' ? {
+    data: {
+      action: actionMessage, 
+      value: scrollRatioDisplay 
+    },
+  } : {
+    data: {
+      action: actionMessage, 
+    },
+  }; 
   console.log(actionMessage);
-  browser.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    browser.tabs.sendMessage(tabs[0].id, { action: actionMessage });
+  console.log(message.data.action + ", " + message.data.value);
+  
+  browser.tabs.query({ 
+    active: true, 
+    currentWindow: true 
+  }, 
+  function (tabs) {
+    browser.tabs.sendMessage(tabs[0].id, message);
   });
 }
 
@@ -107,7 +124,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
   handleStartup();
 });
 
-
+// ------ OLD ------
 // Event listeners
 //document.getElementById('startButton').addEventListener('click', () => { sendMsg("start") });
 // document.getElementById('stopButton').addEventListener('click', () => { sendMsg("stop") });
