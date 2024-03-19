@@ -10,3 +10,10 @@ Auto scrolls webpages at a reasonable pace. Made for Firefox Android, can be use
 
 **To-do**
 1. Automatically toggle reader mode (not avaliable in Firefox on Android :sob:)
+1. Formatting.
+1. Set button color to a different color and disable when running.
+1. Radio button for auto-next.
+1. Add changelog with [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+**Changelog**
+1. 3/18/2024 - base functionality + minor adjustments

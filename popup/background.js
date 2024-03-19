@@ -1,31 +1,51 @@
-var scrollRatioDisplay = 0.8;//Integer.parseInt(document.getElementById("scrollX10").value);
+var scrollRatioDisplay = 0.8;
+const scrollValueInputElement = document.getElementById("scrollX");
 
-// Functions to store into local storage, doesn't work currently
-function populateVals(change){
-  localStorage.setItem('ratio', document.getElementById("scrollX").value);
-  console.log("Value: " + localStorage.getItem('ratio'));
-  //setVals(change);
+// on startup
+function handleStartup() {
+  console.log("On Startup");
+  var currRatio = localStorage.getItem('ratio');
+  if (!currRatio) {
+    localStorage.setItem('ratio', scrollRatioDisplay);
+  } else {
+    scrollRatioDisplay = Number.parseFloat(currRatio);
+  }
 }
 
-// function setVals(change){
-//   var currentRatio = Integer.parseInt(localStorage.getItem('ratio')) + change;
-//   document.getElementById("scrollX").value = currentRatio.toString();
-// }
-// scrollRatioDisplay.onchange = populateVals;
+/**
+ * Save the current value in the scrollX element to the
+ * ratio variable in local storage.
+ */
+function saveScrollValue() {
+  localStorage.setItem('ratio', scrollRatioDisplay);
+  scrollValueInputElement.value = scrollRatioDisplay;
+  populateDisplay(scrollRatioDisplay);
+  console.log("Value: " + localStorage.getItem('ratio'));
+}
 
-// // Refresh and update scrollRatioDisplay on change
-function refreshScrollRatioDisplay(sr, change){
-  sr += change;
-  //sessionStorage.setItem("srd", sr.toString());
-  document.getElementById("scrollX").value = sr.toFixed(1);
-  return sr;
+/**
+ * Start the process for the automatic scrolling msg to be
+ * sent to the content script.
+ */
+function startProcess() {
+  saveScrollValue();
+  sendMsg("start");
+}
+
+/**
+ * Update the text display with value
+ * TODO: might need error checking
+ * @param {var} value 
+ */
+function populateDisplay(value) {
+  scrollValueInputElement.value = Number.parseFloat(value).toFixed(1);
 }
 
 // Sends a message using active tab info
-function sendMsg(actionMessage){
+function sendMsg(actionMessage) {
   console.log(actionMessage);
-  browser.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-    browser.tabs.sendMessage(tabs[0].id, {action: actionMessage});
+  browser.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    browser.tabs.sendMessage(tabs[0].id, { action: actionMessage });
   });
 }
 
@@ -42,10 +62,12 @@ window.addEventListener("DOMContentLoaded", (event) => {
   // scroll value changers.
   const plusButtonElement = document.getElementById('plusButton');
   const subButtonElement = document.getElementById('minusButton');
-  
+
   // adding event listeners.
   if (startButtonElement) {
-    startButtonElement.addEventListener('click', () => { sendMsg("start") });
+    startButtonElement.addEventListener('click', () => {
+      startProcess();
+    });
   }
 
   if (stopButtonElement) {
@@ -59,20 +81,16 @@ window.addEventListener("DOMContentLoaded", (event) => {
   if (plusButtonElement) {
     plusButtonElement.addEventListener('click', () => {
       console.log("Plus button pressed.");
-    
-      scrollRatioDisplay = refreshScrollRatioDisplay(scrollRatioDisplay, 0.1);
-      populateVals(scrollRatioDisplay);
-      sendMsg("plus");
+      scrollRatioDisplay = Number.parseFloat(scrollRatioDisplay) + 0.1;
+      saveScrollValue();
     });
   }
 
   if (subButtonElement) {
     subButtonElement.addEventListener('click', () => {
       console.log("Minus button pressed.");
-
-      scrollRatioDisplay = refreshScrollRatioDisplay(scrollRatioDisplay, -0.1);
-      populateVals(scrollRatioDisplay);
-      sendMsg("minus");
+      scrollRatioDisplay = Number.parseFloat(scrollRatioDisplay) - 0.1;
+      saveScrollValue();
     });
   }
 
@@ -82,6 +100,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
     //document.getElementById("scrollX").value = 0.8;
     sendMsg("setValue");
   });
+
+  handleStartup();
 });
 
 
