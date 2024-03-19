@@ -4,12 +4,14 @@ const scrollValueInputElement = document.getElementById("scrollX");
 // on startup
 function handleStartup() {
   console.log("On Startup");
+  console.log("typeof ratio: " + typeof(localStorage.getItem('ratio')));
   var currRatio = localStorage.getItem('ratio');
   if (!currRatio) {
     localStorage.setItem('ratio', scrollRatioDisplay);
   } else {
     scrollRatioDisplay = Number.parseFloat(currRatio);
   }
+  scrollValueInputElement.value = scrollRatioDisplay;
 }
 
 /**
@@ -17,6 +19,7 @@ function handleStartup() {
  * ratio variable in local storage.
  */
 function saveScrollValue() {
+  console.log("saveScrollValue: What is scrollRatioDisplay? " + scrollRatioDisplay);  
   localStorage.setItem('ratio', scrollRatioDisplay);
   scrollValueInputElement.value = scrollRatioDisplay;
   populateDisplay(scrollRatioDisplay);

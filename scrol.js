@@ -6,13 +6,6 @@ let scrollInterval;
 let autoAdvance = 0;    // just a value to add a setting later
 let scrollAmount = 0.8;
 
-function setVals() {
-  var newRatio = Integer.parseInt(localStorage.getItem('ratio'));
-  scrollAmount = newRatio;
-  //document.getElementById("scrollX").value = currentRatio.toString();
-  console.log("new ratio is: " + scrollAmount);
-}
-
 // Function to scroll the webpage
 // default: 600
 function autoScroll() {
@@ -40,7 +33,8 @@ function autoScroll() {
 // Function to start scrolling
 function startScrolling() {
   console.log("Recieved Start");
-  scrollAmount = localStorage.getItem('ratio');
+  console.log("ScrollAmount: " + Number.parseFloat(localStorage.getItem('ratio')).toFixed(1));
+  scrollAmount = Number.parseFloat(localStorage.getItem('ratio'));
   // Check if scrolling is not already running
   if (!scrollInterval) {
     // Start the scrolling interval
