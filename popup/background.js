@@ -45,7 +45,8 @@ function sendMsg(actionMessage) {
   const message = (actionMessage === 'start' || actionMessage === 'autoStart') ? {
     data: {
       action: actionMessage, 
-      value: scrollRatioDisplay 
+      value: scrollRatioDisplay,
+      auto: autoCheckboxElement.checked,
     },
   } : {
     data: {

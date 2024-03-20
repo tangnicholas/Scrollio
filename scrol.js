@@ -13,6 +13,7 @@ function autoScroll() {
   //if end of page advance if auto-advance is on 
   
   if (isEndOfPage()) {
+    console.log("is autoAdvance set? " + autoAdvance);
     if (autoAdvance) {
       console.log("next page")
       gotoNextPage();
@@ -86,6 +87,7 @@ browser.runtime.onMessage.addListener((message) => {
   if (message.data.action === "start" || message.data.action === "autoStart") {
     console.log("Received Start, here is the value: " + message.data.value);
     scrollAmount = Number.parseFloat(message.data.value);
+    autoAdvance = message.data.auto;
     startScrolling();
   } else if (message.data.action === "stop") {
     stopScrolling();
