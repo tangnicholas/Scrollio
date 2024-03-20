@@ -4,12 +4,14 @@ const scrollValueInputElement = document.getElementById("scrollX");
 // on startup
 function handleStartup() {
   console.log("On Startup");
+  console.log("typeof ratio: " + typeof(localStorage.getItem('ratio')));
   var currRatio = localStorage.getItem('ratio');
   if (!currRatio) {
     localStorage.setItem('ratio', scrollRatioDisplay);
   } else {
     scrollRatioDisplay = Number.parseFloat(currRatio);
   }
+  scrollValueInputElement.value = Number.parseFloat(scrollRatioDisplay).toFixed(1);
 }
 
 /**
@@ -17,6 +19,7 @@ function handleStartup() {
  * ratio variable in local storage.
  */
 function saveScrollValue() {
+  console.log("saveScrollValue: What is scrollRatioDisplay? " + scrollRatioDisplay);  
   localStorage.setItem('ratio', scrollRatioDisplay);
   scrollValueInputElement.value = scrollRatioDisplay;
   populateDisplay(scrollRatioDisplay);
@@ -43,9 +46,26 @@ function populateDisplay(value) {
 
 // Sends a message using active tab info
 function sendMsg(actionMessage) {
+  // Create a message object.
+  const message = actionMessage === 'start' ? {
+    data: {
+      action: actionMessage, 
+      value: scrollRatioDisplay 
+    },
+  } : {
+    data: {
+      action: actionMessage, 
+    },
+  }; 
   console.log(actionMessage);
-  browser.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    browser.tabs.sendMessage(tabs[0].id, { action: actionMessage });
+  console.log(message.data.action + ", " + message.data.value);
+  
+  browser.tabs.query({ 
+    active: true, 
+    currentWindow: true 
+  }, 
+  function (tabs) {
+    browser.tabs.sendMessage(tabs[0].id, message);
   });
 }
 
@@ -104,7 +124,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
   handleStartup();
 });
 
-
+// ------ OLD ------
 // Event listeners
 //document.getElementById('startButton').addEventListener('click', () => { sendMsg("start") });
 // document.getElementById('stopButton').addEventListener('click', () => { sendMsg("stop") });

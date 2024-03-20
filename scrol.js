@@ -6,13 +6,6 @@ let scrollInterval;
 let autoAdvance = 0;    // just a value to add a setting later
 let scrollAmount = 0.8;
 
-function setVals() {
-  var newRatio = Integer.parseInt(localStorage.getItem('ratio'));
-  scrollAmount = newRatio;
-  //document.getElementById("scrollX").value = currentRatio.toString();
-  console.log("new ratio is: " + scrollAmount);
-}
-
 // Function to scroll the webpage
 // default: 600
 function autoScroll() {
@@ -40,7 +33,8 @@ function autoScroll() {
 // Function to start scrolling
 function startScrolling() {
   console.log("Recieved Start");
-  scrollAmount = localStorage.getItem('ratio');
+  console.log("ScrollAmount: " + Number.parseFloat(scrollAmount).toFixed(1));
+
   // Check if scrolling is not already running
   if (!scrollInterval) {
     // Start the scrolling interval
@@ -73,6 +67,9 @@ function incrementString(str) {
   return str.substr(0, count.index) + (++count[0]);
 };
 
+/**
+ * 
+ */
 function gotoNextPage() {
   console.log("End of page reached!");
   var pageNum = window.location.pathname.split("/").pop().toString()
@@ -82,15 +79,19 @@ function gotoNextPage() {
   window.location = url.replace(pageNum, pageNumNew);
 }
 
-//Runtime Controls
+/** 
+ * 
+ */
 browser.runtime.onMessage.addListener((message) => {
-  if (message.action === "start") {
+  if (message.data.action === "start") {
+    console.log("Received Start, here is the value: " + message.data.value);
+    scrollAmount = Number.parseFloat(message.data.value);
     startScrolling();
-  } else if (message.action === "stop") {
+  } else if (message.data.action === "stop") {
     stopScrolling();
-  } else if (message.action === "next") {
+  } else if (message.data.action === "next") {
     gotoNextPage();
-  } else if (message.action === "setValue") {
+  } else if (message.data.action === "setValue") {
     //setVals();
   }
 });
