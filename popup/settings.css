@@ -1,24 +1,46 @@
 /* Styles for buttons */
 button {
   display: inline-block;
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 5px 20px;
+  font-size: 14px;
   border: none;
-  border-radius: 5px;
+  border-radius: 1px;
   cursor: pointer;
-  background-color: #4CAF50; /* Green */
-  color: white;
+  background-color: #ffffff;
+  color: black;
+  outline: 2px solid black; /* Set outline color */
   text-align: center;
   text-decoration: none;
   transition-duration: 0.4s;
+  font-family: "Roboto Condensed", sans-serif;
+  font-weight: bold;
+  text-transform: uppercase; /* Convert text to all caps */
+}
+button img {
+  vertical-align: middle; /* Align the image vertically in the middle of the button */
+  margin-right: 0px /* Add some space between the image and the text */
 }
 
 /* Hover effect */
 button:hover {
-  background-color: #45a049; /* Darker green */
+  background-color: #e8e8e8;
 }
 
 /* Add margin between buttons */
 button + button {
   margin-left: 10px;
+}
+
+/* Style for number input */
+input[type="text"] {
+  width: 100px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  font-family: "Roboto Condensed", sans-serif;
+}
+legend {
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 14px;
 }
