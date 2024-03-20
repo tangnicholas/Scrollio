@@ -1,17 +1,12 @@
 var scrollRatioDisplay = 0.8;
 const scrollValueInputElement = document.getElementById("scrollX");
 
-// on startup
-function handleStartup() {
-  console.log("On Startup");
-  console.log("typeof ratio: " + typeof(localStorage.getItem('ratio')));
-  var currRatio = localStorage.getItem('ratio');
-  if (!currRatio) {
-    localStorage.setItem('ratio', scrollRatioDisplay);
-  } else {
-    scrollRatioDisplay = Number.parseFloat(currRatio);
-  }
-  scrollValueInputElement.value = Number.parseFloat(scrollRatioDisplay).toFixed(1);
+const autoCheckboxElement = document.getElementById('checkbox');
+
+
+function saveCheckValue(){
+  var autoStart = autoCheckboxElement.checked ? 1 : 0;
+  localStorage.setItem('check', (autoStart ? '1' : '0'));
 }
 
 /**
@@ -47,7 +42,7 @@ function populateDisplay(value) {
 // Sends a message using active tab info
 function sendMsg(actionMessage) {
   // Create a message object.
-  const message = actionMessage === 'start' ? {
+  const message = (actionMessage === 'start' || actionMessage === 'autoStart') ? {
     data: {
       action: actionMessage, 
       value: scrollRatioDisplay 
@@ -68,6 +63,27 @@ function sendMsg(actionMessage) {
     browser.tabs.sendMessage(tabs[0].id, message);
   });
 }
+
+// on startup
+function handleStartup() {
+  console.log("On Startup");
+  console.log("typeof ratio: " + typeof(localStorage.getItem('ratio')));
+  var currRatio = localStorage.getItem('ratio');
+
+  if (!currRatio) {
+    localStorage.setItem('ratio', scrollRatioDisplay);
+  } else {
+    scrollRatioDisplay = Number.parseFloat(currRatio);
+  }
+  scrollValueInputElement.value = Number.parseFloat(scrollRatioDisplay).toFixed(1);
+
+  var currCheck = localStorage.getItem('check');
+  if(currCheck === "1"){
+    autoCheckboxElement.checked = true;
+    console.log('startup auto scroll');
+  }
+}
+
 
 /**
  * Check if DOMContentLoaded is complete before adding event listeners
@@ -114,14 +130,23 @@ window.addEventListener("DOMContentLoaded", (event) => {
     });
   }
 
-  // Reset scroll on tab update
-  browser.tabs.onUpdated.addListener(() => {
-    console.log('location changed!');
-    //document.getElementById("scrollX").value = 0.8;
-    sendMsg("setValue");
+  if (autoCheckboxElement){
+    autoCheckboxElement.addEventListener('change', () =>{
+      saveCheckValue();
+    });
+  }
+
+  browser.tabs.onUpdated.addListener(() =>{
+    console.log('new tab check auto scroll');
+    if(localStorage.getItem('check') === "1"){
+      console.log('new tab YES scroll');
+      sendMsg('autoStart');
+    }
   });
 
+
   handleStartup();
+
 });
 
 // ------ OLD ------
@@ -144,3 +169,9 @@ window.addEventListener("DOMContentLoaded", (event) => {
 //   sendMsg("minus");
 // });
 
+// // Reset scroll on tab update
+// browser.tabs.onUpdated.addListener(() => {
+//   console.log('location changed!');
+//   //document.getElementById("scrollX").value = 0.8;
+//   sendMsg("setValue");
+// });

@@ -83,7 +83,7 @@ function gotoNextPage() {
  * 
  */
 browser.runtime.onMessage.addListener((message) => {
-  if (message.data.action === "start") {
+  if (message.data.action === "start" || message.data.action === "autoStart") {
     console.log("Received Start, here is the value: " + message.data.value);
     scrollAmount = Number.parseFloat(message.data.value);
     startScrolling();

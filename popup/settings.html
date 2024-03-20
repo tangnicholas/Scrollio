@@ -9,18 +9,23 @@
 <body>
   <button id="startButton">Scroll</button>
   <button id="stopButton">Stop</button><br /><br />
-  <button id="nextButton">
-    <img src="../icons/next-svg.svg" width="16" height="16" alt="Icon">
-    Next Page
-
-  </button><br /><br />
 
   <fieldset>
     <legend>Scroll Amount (ratio to window size):</legend>
     <button id="plusButton">+</button>
     <input type="text" id="scrollX" name="scrollX" readonly="true"></input>
     <button id="minusButton">-</button>
-  </fieldset>
+  </fieldset><br />
+
+  <button id="nextButton">
+    <img src="../icons/next-svg.svg" width="16" height="16" alt="Icon">
+    Next Page
+  </button><br /><br />
+
+  <form>
+    <input type="checkbox" id="checkbox" name="checkbox">
+    <label for="checkbox">Auto-start on new page</label>
+  </form>
 
   <!--
   <br /><input type="checkbox" id="autoAdvance" value="Auto advance to next page">

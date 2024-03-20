@@ -17,3 +17,4 @@ Auto scrolls webpages at a reasonable pace. Made for Firefox Android, can be use
 
 **Changelog**
 1. 3/18/2024 - base functionality + minor adjustments
+2. 3/19/2024 - added checkbox to autoscroll on new page load
