@@ -18,7 +18,7 @@ button {
 }
 button img {
   vertical-align: middle; /* Align the image vertically in the middle of the button */
-  margin-right: 0px /* Add some space between the image and the text */
+  margin-right: -3px /* Add some space between the image and the text */
 }
 
 /* Hover effect */
