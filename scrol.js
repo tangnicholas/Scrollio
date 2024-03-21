@@ -63,7 +63,7 @@ function isEndOfPage() {
 }
 
 /**
- * 
+ * Increment url string to append a new and/or incremented number to end.
  * @param {} str 
  * @returns 
  */
