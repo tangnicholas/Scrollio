@@ -3,8 +3,10 @@ const scrollValueInputElement = document.getElementById("scrollX");
 
 const autoCheckboxElement = document.getElementById('checkbox');
 
-
-function saveCheckValue(){
+/**
+ * Save current condition value for auto start
+ */
+function saveCheckValue() {
   var autoStart = autoCheckboxElement.checked ? 1 : 0;
   localStorage.setItem('check', (autoStart ? '1' : '0'));
 }
@@ -85,7 +87,6 @@ function handleStartup() {
   }
 }
 
-
 /**
  * Check if DOMContentLoaded is complete before adding event listeners
  * to elements.
@@ -145,34 +146,5 @@ window.addEventListener("DOMContentLoaded", (event) => {
     }
   });
 
-
   handleStartup();
-
 });
-
-// ------ OLD ------
-// Event listeners
-//document.getElementById('startButton').addEventListener('click', () => { sendMsg("start") });
-// document.getElementById('stopButton').addEventListener('click', () => { sendMsg("stop") });
-// document.getElementById('nextButton').addEventListener('click', () => { sendMsg("next") });
-// document.getElementById('plusButton').addEventListener('click', () => {
-//   console.log("Plus button pressed.");
-
-//   scrollRatioDisplay = refreshScrollRatio(scrollRatioDisplay, 0.1);
-//   populateVals(scrollRatioDisplay);
-//   sendMsg("plus");
-// });
-
-// document.getElementById('minusButton').addEventListener('click', () => {
-//   console.log("Minus button pressed.");
-//   scrollRatioDisplay = refreshScrollRatio(scrollRatioDisplay, -0.1);
-//   populateVals(scrollRatioDisplay);
-//   sendMsg("minus");
-// });
-
-// // Reset scroll on tab update
-// browser.tabs.onUpdated.addListener(() => {
-//   console.log('location changed!');
-//   //document.getElementById("scrollX").value = 0.8;
-//   sendMsg("setValue");
-// });

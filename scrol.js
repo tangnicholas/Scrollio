@@ -54,11 +54,19 @@ function stopScrolling() {
   }
 }
 
-// Functions to check if end of page is reached, and go to next page
+/**
+ * Functions to check if end of page is reached, and go to next page
+ * @returns    True or False
+ */
 function isEndOfPage() {
   return window.innerHeight + window.scrollY >= document.body.offsetHeight;
 }
 
+/**
+ * Increment url string to append a new and/or incremented number to end.
+ * @param {} str 
+ * @returns 
+ */
 function incrementString(str) {
   // Find the trailing number or it will match the empty string
   var count = str.match(/\d*$/);
@@ -69,7 +77,9 @@ function incrementString(str) {
 };
 
 /**
- * 
+ * Function to switch current viewing page to 
+ * the next page by appending an incremented integer
+ * value to the url.
  */
 function gotoNextPage() {
   console.log("End of page reached!");
@@ -81,7 +91,7 @@ function gotoNextPage() {
 }
 
 /** 
- * 
+ * Runtime listeners
  */
 browser.runtime.onMessage.addListener((message) => {
   if (message.data.action === "start" || message.data.action === "autoStart") {
