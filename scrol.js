@@ -54,6 +54,30 @@ function stopScrolling() {
   }
 }
 
+////////////////////////////////////////////////////////////
+function checkNextPage() {
+  // Get the current URL.
+  const url = window.location.href;
+
+  // Check if the URL ends in a number.
+  if (url.endsWith('page-2') || url.endsWith('page-3')) {
+    // There is a next page.
+    return true;
+  } else {
+    // There is no next page.
+    return false;
+  }
+}
+
+// Check if there is a next page.
+const hasNextPage = checkNextPage();
+
+// If there is a next page, do something.
+if (hasNextPage) {
+  // ...
+}
+////////////////////////////////////////////////////////////
+
 /**
  * Functions to check if end of page is reached, and go to next page
  * @returns    True or False
