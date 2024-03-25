@@ -1,7 +1,9 @@
 // Define the interval time in milliseconds
 const intervalTime = 1000;
 
-// Variable to hold the interval timer
+/** 
+ * Variables
+ */
 let scrollInterval;
 let autoAdvance = 0;    // just a value to add a setting later
 let scrollAmount = 0.8;
