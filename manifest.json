@@ -11,7 +11,7 @@
   },
   "manifest_version": 2,
   "name": "Scrollio",
-  "version": "0.952",
+  "version": "1.1",
   "description": "Auto scrolls webpages at a reasonable pace",
   "icons": {
     "48": "icons/scroll-svg.svg"

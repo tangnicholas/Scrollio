@@ -1,5 +1,5 @@
 // Define the interval time in milliseconds
-const intervalTime = 1000;
+const intervalTime = 10000;
 
 // Variable to hold the interval timer
 let scrollInterval;
