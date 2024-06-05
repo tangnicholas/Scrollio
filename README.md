@@ -25,7 +25,7 @@ Auto scrolls webpages at a reasonable pace. Made for Firefox Android, can be use
 ### Added
 
 - Checkbox to auto-scroll on new page load
-- Checkbox to determine if page has reach its end, and to advance to next page (looks for page index in URL and incrementing)
+- Checkbox to determine if page has reach its end, and to advance to next page (looks for the page index in URL and increments it)
 
 ## [0.9.1] - 2024-03-14
 
