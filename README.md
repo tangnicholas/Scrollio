@@ -17,3 +17,23 @@ Auto scrolls webpages at a reasonable pace. Made for Firefox Android, can be use
 **Changelog**
 1. 3/18/2024 - base functionality + minor adjustments
 2. 3/19/2024 - added checkbox to autoscroll on new page load
+
+
+## [1.1.0] - 2024-03-25
+
+### Changed
+
+- Duration of each scroll from 0.1s to 10s
+
+## [1.0.0] - 2024-03-20
+
+### Added
+
+- Checkbox to auto-scroll on new page load
+- Checkbox to determine if page has reach its end, and to advance to next page (looks for page index in URL and incrementing)
+
+## [0.9.1] - 2024-03-14
+
+### Added
+
+- Adjuster to control the amount of scrolling each interval as a ratio of current displayed window size
