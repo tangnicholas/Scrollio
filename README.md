@@ -3,7 +3,7 @@
 Auto scrolls webpages at a reasonable pace. Made for Firefox Android, can be used on Firefox Desktop, should work for Chrome / Edge if you want to fork
 
 **Current Features**
-1. Customizable scrolling amount based on window size every 10s
+1. Customizable scrolling amount based on window size with adjustable intervals
 1. Toggle start / stop scrolling on demand
 1. Toggle auto-advance to next page at the end of a page, or by manual toggle (predicts next page url index using current url)
 1. Simple black and white material design
@@ -13,6 +13,14 @@ Auto scrolls webpages at a reasonable pace. Made for Firefox Android, can be use
 1. Formatting.
 
 # Changelog
+
+## [1.2.0] - 2024-08-08
+
+### Added
+
+- Display for current scrolling interval
+- Buttons to change the scrolling interval
+- Mininum floor value of 0 for window ratio and scrolling interval (unless somebody wants to scroll up?)
 
 ## [1.1.0] - 2024-03-25
 

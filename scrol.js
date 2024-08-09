@@ -1,5 +1,5 @@
 // Define the interval time in milliseconds
-const intervalTime = 10000;
+let intervalTime = 10000;
 
 // Variable to hold the interval timer
 let scrollInterval;
@@ -88,6 +88,7 @@ browser.runtime.onMessage.addListener((message) => {
     console.log("Received Start, here is the value: " + message.data.value);
     scrollAmount = Number.parseFloat(message.data.value);
     autoAdvance = message.data.auto;
+    intervalTime = Number(message.data.interval*1000);
     startScrolling();
   } else if (message.data.action === "stop") {
     stopScrolling();
