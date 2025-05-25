@@ -1,4 +1,4 @@
-var scrollRatioDisplay = 0.8;
+var scrollRatioDisplay = 0.80;
 var intValueDisplay = 10;
 const scrollValueInputElement = document.getElementById("scrollX");
 const autoCheckboxElement = document.getElementById('checkbox');
@@ -33,6 +33,12 @@ function saveIntValue(){
   populateIntDisplay(intValueDisplay);
   console.log("Value: " + localStorage.getItem('interval'));
 }
+/*save dark mode*/
+function toggleDarkMode() {
+  let isDark = document.body.classList.toggle('dark-mode');
+  localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+}
+
 /**
  * Start the process for the automatic scrolling msg to be
  * sent to the content script.
@@ -49,7 +55,7 @@ function startProcess() {
  * @param {var} value 
  */
 function populateDisplay(value) {
-  scrollValueInputElement.value = Number.parseFloat(value).toFixed(1);
+  scrollValueInputElement.value = Number.parseFloat(value).toFixed(3);
 }
 function populateIntDisplay(value) {
   IntValueElement.value = Number(value);
@@ -95,7 +101,7 @@ function handleStartup() {
   } else {
     scrollRatioDisplay = Number.parseFloat(currRatio);
   }
-  scrollValueInputElement.value = Number.parseFloat(scrollRatioDisplay).toFixed(1);
+  scrollValueInputElement.value = Number.parseFloat(scrollRatioDisplay).toFixed(3);
 
   // interval handling
   if (!currInterval) {
@@ -111,6 +117,10 @@ function handleStartup() {
     autoCheckboxElement.checked = true;
     console.log('startup auto scroll');
   }
+
+  // dark mode handling
+  if (localStorage.getItem('darkMode') === 'enabled')
+    document.body.classList.add('dark-mode');
 }
 
 
@@ -123,6 +133,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
   const startButtonElement = document.getElementById('startButton');
   const stopButtonElement = document.getElementById('stopButton');
   const nextButtonElement = document.getElementById('nextButton');
+  const darkButtonElement = document.getElementById('darkButton')
 
   // scroll value changers.
   const plusButtonElement = document.getElementById('plusButton');
@@ -134,6 +145,12 @@ window.addEventListener("DOMContentLoaded", (event) => {
   if (startButtonElement) {
     startButtonElement.addEventListener('click', () => {
       startProcess();
+    });
+  }
+  if (darkButtonElement) {
+    darkButtonElement.addEventListener('click', () => { 
+      let isDark = document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
     });
   }
 
@@ -148,7 +165,12 @@ window.addEventListener("DOMContentLoaded", (event) => {
   if (plusButtonElement) {
     plusButtonElement.addEventListener('click', () => {
       console.log("Plus button pressed.");
-      scrollRatioDisplay = Number.parseFloat(scrollRatioDisplay) + 0.1;
+      if(scrollRatioDisplay.toFixed(3) >= 0.10)
+        scrollRatioDisplay = Number.parseFloat(scrollRatioDisplay) + 0.1;
+      else if(scrollRatioDisplay.toFixed(3) >= 0.03)
+        scrollRatioDisplay = Number.parseFloat(scrollRatioDisplay) + 0.01;
+      else
+        scrollRatioDisplay = Number.parseFloat(scrollRatioDisplay) + 0.005;
       saveScrollValue();
     });
   }
@@ -156,7 +178,12 @@ window.addEventListener("DOMContentLoaded", (event) => {
   if (subButtonElement) {
     subButtonElement.addEventListener('click', () => {
       console.log("Minus button pressed.");
-      scrollRatioDisplay = Math.max(Number.parseFloat(scrollRatioDisplay) - 0.1, 0);
+      if(scrollRatioDisplay.toFixed(3) > 0.10)
+        scrollRatioDisplay = Math.max(Number.parseFloat(scrollRatioDisplay) - 0.1, 0);
+      else if(scrollRatioDisplay.toFixed(3) > 0.03)
+        scrollRatioDisplay = Math.max(Number.parseFloat(scrollRatioDisplay) - 0.01, 0);
+      else
+        scrollRatioDisplay = Math.max(Number.parseFloat(scrollRatioDisplay) - 0.005, 0);
       saveScrollValue();
     });
   }

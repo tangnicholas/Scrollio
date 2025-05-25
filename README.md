@@ -3,16 +3,28 @@
 Auto scrolls webpages at a reasonable pace. Made for Firefox Android, can be used on Firefox Desktop, should work for Chrome / Edge if you want to fork
 
 **Current Features**
-1. Customizable scrolling amount based on window size with adjustable intervals
+1. Customizable scrolling amount based on window size with modular adjustable intervals
 1. Toggle start / stop scrolling on demand
 1. Toggle auto-advance to next page at the end of a page, or by manual toggle (predicts next page url index using current url)
 1. Simple black and white material design
+1. Dark mode
 
 **To-do**
 1. Automatically toggle reader mode (not avaliable in Firefox on Android :sob:)
 1. Formatting.
 
 # Changelog
+
+## [1.3.0] - 2025-05-25
+
+### Added
+
+- Dark mode (yay!)
+
+### Changed
+
+- Scrolling adjustments from fixed (0.1x) to modular (0.1x, then 0.01x, then 0.005x)
+- Scroll amount box to display 3 digits to support modular scrolling adjustments
 
 ## [1.2.0] - 2024-08-08
 

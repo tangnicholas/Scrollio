@@ -1,3 +1,16 @@
+/*some code for a dark mode?*/
+:root {
+  --background-color-light: #ffffff;
+  --text-color-light: #000000;
+  --background-color-dark: #121212;
+  --text-color-dark: #ffffff;
+}
+
+body {
+  background-color: var(--background-color-light);
+  color: var(--text-color-light);
+}
+
 /* Styles for buttons */
 button {
   display: inline-block;
@@ -15,6 +28,10 @@ button {
   font-family: "Roboto Condensed", sans-serif;
   font-weight: bold;
   text-transform: uppercase; /* Convert text to all caps */
+}
+.dark-mode {
+  background-color: var(--background-color-dark);
+  color: var(--text-color-dark);
 }
 button img {
   vertical-align: middle; /* Align the image vertically in the middle of the button */
@@ -43,4 +60,9 @@ input[type="text"] {
 legend {
   font-family: "Roboto Condensed", sans-serif;
   font-size: 14px;
+}
+
+.dark-mode {
+  background-color: var(--background-color-dark);
+  color: var(--text-color-dark);
 }
